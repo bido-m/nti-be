@@ -9,7 +9,10 @@ const bootstrap = () => {
 
   connectDB();
   app.use(express.json());
-
+  
+  app.use("/",(req,res) => {
+    return res.json({message:"Hello!!!!!!"});
+  })
   app.use("/auth",allRouter.authRouter);
   app.use("/user",allRouter.userRouter);
   app.use("/category",allRouter.categoryRouter);
@@ -24,9 +27,6 @@ const bootstrap = () => {
     return res.json({ message: err.message });
   });
 
-  app.use("/",(req,res) => {
-    return res.json({message:"Hello!!!!!!"});
-  })
 
   app.listen(process.env.PORT, () => {
     console.log("server is running");
