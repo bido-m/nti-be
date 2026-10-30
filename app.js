@@ -1,10 +1,9 @@
 import express from "express";
-import { connectDB } from "./DB/connection.js";
+import { connectDB } from "./src/DB/connection.js";
 import { config } from "dotenv";
-import * as allRouter from "./index.route.js";
+import * as allRouter from "./src/index.route.js";
 
-const bootstrap = () => {
-  config();
+config();
   const app = express();
 
   connectDB();
@@ -29,7 +28,7 @@ const bootstrap = () => {
     return res.json({ message: err.message });
   });
 
-  return app;
-};
 
-export default bootstrap;
+  app.listen(process.env.PORT, () => {
+    console.log("server is running");
+  });
