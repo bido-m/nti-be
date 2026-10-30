@@ -24,6 +24,10 @@ const bootstrap = () => {
     return res.json({ message: err.message });
   });
 
+  app.use("/",(req,res) => {
+    return res.json({message:"Hello!!!!!!"});
+  })
+
   app.listen(process.env.PORT, () => {
     console.log("server is running");
   });
