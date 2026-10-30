@@ -23,16 +23,13 @@ const bootstrap = () => {
 
 
   app.use((req, res, next) => {
-    next("Invalid URL");
+    next(new Error("Invalid URL"));
   });
   app.use((err, req, res, next) => {
     return res.json({ message: err.message });
   });
 
-
-  app.listen(process.env.PORT, () => {
-    console.log("server is running");
-  });
+  return app;
 };
 
 export default bootstrap;
