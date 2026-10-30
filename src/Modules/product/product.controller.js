@@ -58,6 +58,25 @@ const getAll = async (req, res, next) => {
         return next(error);
     }
 };
+
+const getById = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const product = await productModel.findById(id)
+            .populate("category_id", "name")
+            .populate("subcategory_id", "name")
+            .populate("brand_id", "name logo")
+            .populate("createdBy", "name email");
+
+        if (!product) {
+            return next(new Error("Product not found", { cause: 404 }));
+        }
+
+        return res.status(200).json({ message: "Product fetched successfully", product });
+    } catch (error) {
+        return next(error);
+    }
+};
 //admin
 const update = async (req, res, next) => {
     try {
@@ -89,4 +108,4 @@ const remove = async (req, res, next) => {
     }
 };
 
-export { add, getAll, update, remove }
+export { add, getAll, getById, update, remove };

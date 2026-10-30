@@ -1,0 +1,15 @@
+meta {
+  name: Get Product By ID
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/product/{{productId}}
+  body: none
+  auth: none
+}
+
+docs {
+  Fetches a single product by its ObjectId, with populated category, subcategory, brand, and creator details.
+}

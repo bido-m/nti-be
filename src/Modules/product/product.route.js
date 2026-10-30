@@ -7,6 +7,7 @@ const router = Router();
 
 router.post("/", authentication, uploadMedia().single("image"), product.add);
 router.get("/", product.getAll);
+router.get("/:id", product.getById);
 router.put("/:id", product.update);
 router.delete("/:id", product.remove);
 
