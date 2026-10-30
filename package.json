@@ -1,0 +1,27 @@
+{
+  "name": "no-sql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "nodemon": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "type": "module",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^2.11.0",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^18.0.5",
+    "express": "^5.2.1",
+    "joi": "^18.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.10.2",
+    "multer": "^2.4.0",
+    "nanoid": "^6.0.2",
+    "nodemailer": "^10.1.0",
+    "slugify": "^1.6.9",
+    "socket.io": "^4.8.4"
+  }
+}
