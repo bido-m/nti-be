@@ -10,14 +10,16 @@ const bootstrap = () => {
   connectDB();
   app.use(express.json());
   
-  app.get("/",(req,res) => {
-    return res.json({message:"Hello!!!!!!"});
-  })
+  app.use("/", allRouter.healthRouter);
   app.use("/auth",allRouter.authRouter);
-  app.use("/user",allRouter.userRouter);
+  app.use("/brand",allRouter.brandRouter);
+  app.use("/cart",allRouter.cartRouter);
   app.use("/category",allRouter.categoryRouter);
-  app.use("/subcategory",allRouter.subcategoryRouter);
+  app.use("/order",allRouter.orderRouter);
   app.use("/product",allRouter.productRouter);
+  app.use("/review",allRouter.reviewRouter);
+  app.use("/subcategory",allRouter.subcategoryRouter);
+  app.use("/user",allRouter.userRouter);
 
 
   app.use((req, res, next) => {

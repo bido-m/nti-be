@@ -7,6 +7,7 @@ import productRouter from "./Modules/product/product.route.js";
 import reviewRouter from "./Modules/review/review.route.js";
 import subcategoryRouter from "./Modules/subcategory/subcategory.route.js";
 import userRouter from "./Modules/user/user.route.js";
+import healthRouter from "./health/health.route.js";
 
 export{
     authRouter,
@@ -18,4 +19,5 @@ export{
     reviewRouter,
     subcategoryRouter,
     userRouter,
+    healthRouter,
 }
