@@ -10,7 +10,7 @@ const bootstrap = () => {
   connectDB();
   app.use(express.json());
   
-  app.use("/",(req,res) => {
+  app.get("/",(req,res) => {
     return res.json({message:"Hello!!!!!!"});
   })
   app.use("/auth",allRouter.authRouter);
