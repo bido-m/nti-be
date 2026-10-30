@@ -3,15 +3,18 @@ import { userModel } from "../DB/Models/user.model.js";
 
 export const authentication = async (req,res,next) => {
     try {
-        const {x} = req.headers;
-        const {id} = jwt.verify(x,process.env.TOKEN_KEY);
+        const token = req.headers.x || req.headers.token || (req.headers.authorization ? req.headers.authorization.replace(/^Bearer\s+/i, '') : null);
+        if (!token) {
+            return res.status(401).json({ message: "Authentication token required" });
+        }
+        const {id} = jwt.verify(token, process.env.TOKEN_KEY);
         const user = await userModel.findById(id);
         if(!user){
-            return res.json({message:"user not found"});
+            return res.status(404).json({message:"user not found"});
         }
         req.user = user;
         return next();
     } catch (error) {
-        return res.json({message:"failed to get user"});
+        return res.status(401).json({message:"Authentication failed", error: error.message});
     }
 }

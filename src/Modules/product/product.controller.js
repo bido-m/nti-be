@@ -7,7 +7,7 @@ import slugify from "slugify";
 //admin
 const add = async (req, res, next) => {
     try {
-        const { name, description, colors, price, sizes, stock, category_id, subcategory_id, brand_id } = req.body;
+        const { name, description, colors, price, sizes, stock, category_id, subcategory_id, brand_id, image_url } = req.body;
         const category = await categoryModel.findById(category_id);
         if(!category) return next(new Error("Invalid category",{cause:400}));
         const subcategory = await subcategoryModel.findOne({ _id: subcategory_id, category_id });
@@ -18,28 +18,41 @@ const add = async (req, res, next) => {
         if(isExist){
             return next(new Error("Product name already exists", { cause: 409 }));
         }
-        if(price < 0){
+        if(Number(price) < 0){
             return next(new Error("Product price must be positive", { cause: 409 }));
         }
-        if(stock < 0){
+        if(Number(stock) < 0){
             return next(new Error("Product stock must be positive", { cause: 409 }));
         }
-        const {secure_url,public_id} = await v2.uploader.upload(req.file.path,{
-            folder:"e-comm/products"
-        });
+
+        let imageData = {
+            secure_url: image_url || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800",
+            public_id: "default_product"
+        };
+
+        if (req.file) {
+            const {secure_url,public_id} = await v2.uploader.upload(req.file.path,{
+                folder:"e-comm/products"
+            });
+            imageData = { secure_url, public_id };
+        }
+
+        const parsedColors = Array.isArray(colors) ? colors : (typeof colors === 'string' && colors.trim() ? colors.split(',').map(s => s.trim()) : []);
+        const parsedSizes = Array.isArray(sizes) ? sizes : (typeof sizes === 'string' && sizes.trim() ? sizes.split(',').map(s => s.trim()) : []);
+
         const data = await productModel.create({
             name,
-            slug:slugify(name),
+            slug: slugify(name, { lower: true }),
             description,
-            colors,
-            price,
-            sizes,
-            stock,
-            image:{secure_url,public_id},
+            colors: parsedColors,
+            price: Number(price),
+            sizes: parsedSizes,
+            stock: Number(stock || 1),
+            image: imageData,
             category_id,
             subcategory_id,
             brand_id,
-            createdBy:req.user._id
+            createdBy: req.user._id
         });
         return res.status(201).json({
             message: "product added successfully",
@@ -52,7 +65,22 @@ const add = async (req, res, next) => {
 
 const getAll = async (req, res, next) => {
     try {
-        const products = await productModel.find();
+        const { category_id, subcategory_id, brand_id, search } = req.query;
+        let filter = {};
+        if (category_id) filter.category_id = category_id;
+        if (subcategory_id) filter.subcategory_id = subcategory_id;
+        if (brand_id) filter.brand_id = brand_id;
+        if (search && search.trim()) {
+            const regex = new RegExp(search.trim(), "i");
+            filter.$or = [{ name: regex }, { description: regex }];
+        }
+
+        const products = await productModel.find(filter)
+            .populate("category_id", "name slug image")
+            .populate("subcategory_id", "name")
+            .populate("brand_id", "name logo")
+            .populate("createdBy", "name email");
+
         return res.status(200).json({ message: "Products fetched successfully", products });
     } catch (error) {
         return next(error);

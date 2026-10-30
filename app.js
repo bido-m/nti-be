@@ -1,13 +1,15 @@
 import express from "express";
+import cors from "cors";
 import { connectDB } from "./src/DB/connection.js";
 import { config } from "dotenv";
 import * as allRouter from "./src/index.route.js";
 
 config();
-  const app = express();
+const app = express();
 
-  connectDB();
-  app.use(express.json());
+connectDB();
+app.use(cors());
+app.use(express.json());
   
   app.use("/", allRouter.healthRouter);
   app.use("/auth",allRouter.authRouter);
