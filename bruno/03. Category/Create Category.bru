@@ -1,0 +1,30 @@
+meta {
+  name: Create Category
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/category
+  body: multipart-form
+  auth: none
+}
+
+headers {
+  x: {{token}}
+}
+
+body:multipart-form {
+  name: Electronics
+  image: @file(/path/to/category.png)
+}
+
+script:post-response {
+  if (res.body && res.body.data && res.body.data._id) {
+    bru.setEnvVar("categoryId", res.body.data._id);
+  }
+}
+
+docs {
+  Creates a new category. Requires token (in header 'x') and multipart image upload.
+}

@@ -1,0 +1,27 @@
+meta {
+  name: Update Subcategory
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/subcategory/{{subcategoryId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Mobile Phones",
+    "slug": "mobile-phones",
+    "category_id": "{{categoryId}}"
+  }
+}
+
+docs {
+  Updates subcategory details.
+}

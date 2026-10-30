@@ -1,0 +1,24 @@
+meta {
+  name: Update Brand
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/brand/{{brandId}}
+  body: multipart-form
+  auth: none
+}
+
+headers {
+  x: {{token}}
+}
+
+body:multipart-form {
+  name: Apple Inc.
+  logo: @file(/path/to/new_logo.png)
+}
+
+docs {
+  Updates brand name and optionally replaces logo.
+}

@@ -1,0 +1,30 @@
+meta {
+  name: Create Brand
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/brand
+  body: multipart-form
+  auth: none
+}
+
+headers {
+  x: {{token}}
+}
+
+body:multipart-form {
+  name: Apple
+  logo: @file(/path/to/logo.png)
+}
+
+script:post-response {
+  if (res.body && res.body.data && res.body.data._id) {
+    bru.setEnvVar("brandId", res.body.data._id);
+  }
+}
+
+docs {
+  Creates a brand with logo uploaded to Cloudinary.
+}

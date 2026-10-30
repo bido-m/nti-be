@@ -1,0 +1,36 @@
+meta {
+  name: Create Product
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/product
+  body: multipart-form
+  auth: none
+}
+
+headers {
+  x: {{token}}
+}
+
+body:multipart-form {
+  name: iPhone 15 Pro
+  description: Titanium design, A17 Pro chip
+  price: 999
+  stock: 50
+  category_id: {{categoryId}}
+  subcategory_id: {{subcategoryId}}
+  brand_id: {{brandId}}
+  image: @file(/path/to/product.png)
+}
+
+script:post-response {
+  if (res.body && res.body.data && res.body.data._id) {
+    bru.setEnvVar("productId", res.body.data._id);
+  }
+}
+
+docs {
+  Creates a product. Requires authentication (header 'x') and multipart image upload.
+}

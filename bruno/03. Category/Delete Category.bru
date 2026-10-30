@@ -1,0 +1,15 @@
+meta {
+  name: Delete Category
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/category/{{categoryId}}
+  body: none
+  auth: none
+}
+
+docs {
+  Deletes a category and destroys its image on Cloudinary.
+}

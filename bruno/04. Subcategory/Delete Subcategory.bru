@@ -1,0 +1,15 @@
+meta {
+  name: Delete Subcategory
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/subcategory/{{subcategoryId}}
+  body: none
+  auth: none
+}
+
+docs {
+  Deletes a subcategory by ID.
+}

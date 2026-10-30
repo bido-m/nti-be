@@ -1,0 +1,27 @@
+meta {
+  name: Add To Cart
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/cart
+  body: json
+  auth: none
+}
+
+headers {
+  x: {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "product_id": "{{productId}}",
+    "quantity": 1
+  }
+}
+
+docs {
+  Adds a product to the user's shopping cart, validating available stock.
+}

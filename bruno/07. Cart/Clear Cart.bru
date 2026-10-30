@@ -1,0 +1,19 @@
+meta {
+  name: Clear Cart
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/cart/clear
+  body: none
+  auth: none
+}
+
+headers {
+  x: {{token}}
+}
+
+docs {
+  Empties user's cart completely.
+}

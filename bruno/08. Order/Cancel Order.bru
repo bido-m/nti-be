@@ -1,0 +1,19 @@
+meta {
+  name: Cancel Order
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/order/{{orderId}}/cancel
+  body: none
+  auth: none
+}
+
+headers {
+  x: {{token}}
+}
+
+docs {
+  Cancels a pending order and restores product stock.
+}

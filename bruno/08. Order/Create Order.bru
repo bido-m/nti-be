@@ -1,0 +1,25 @@
+meta {
+  name: Create Order
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/order
+  body: none
+  auth: none
+}
+
+headers {
+  x: {{token}}
+}
+
+script:post-response {
+  if (res.body && res.body.data && res.body.data._id) {
+    bru.setEnvVar("orderId", res.body.data._id);
+  }
+}
+
+docs {
+  Places an order from the user's current cart items, decrements stock, and empties cart.
+}

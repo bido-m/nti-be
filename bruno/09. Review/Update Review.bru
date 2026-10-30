@@ -1,0 +1,27 @@
+meta {
+  name: Update Review
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/review/{{reviewId}}
+  body: json
+  auth: none
+}
+
+headers {
+  x: {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "rating": 4,
+    "comment": "Updated: Excellent overall, slight delay."
+  }
+}
+
+docs {
+  Updates a user's existing review.
+}

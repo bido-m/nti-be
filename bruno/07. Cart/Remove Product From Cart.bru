@@ -1,0 +1,19 @@
+meta {
+  name: Remove Product From Cart
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/cart/product/{{productId}}
+  body: none
+  auth: none
+}
+
+headers {
+  x: {{token}}
+}
+
+docs {
+  Removes a specific product from user's cart.
+}

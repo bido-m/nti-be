@@ -1,0 +1,19 @@
+meta {
+  name: Delete Brand
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/brand/{{brandId}}
+  body: none
+  auth: none
+}
+
+headers {
+  x: {{token}}
+}
+
+docs {
+  Deletes brand and cleans up Cloudinary assets.
+}

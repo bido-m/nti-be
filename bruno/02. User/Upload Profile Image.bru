@@ -1,0 +1,23 @@
+meta {
+  name: Upload Profile Image
+  type: http
+  seq: 3
+}
+
+patch {
+  url: {{baseUrl}}/user/profile/image
+  body: multipart-form
+  auth: none
+}
+
+headers {
+  x: {{token}}
+}
+
+body:multipart-form {
+  profile: @file(/path/to/avatar.png)
+}
+
+docs {
+  Uploads an avatar for user to Cloudinary and replaces old image.
+}

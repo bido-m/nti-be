@@ -1,0 +1,19 @@
+meta {
+  name: Get Cart
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/cart
+  body: none
+  auth: none
+}
+
+headers {
+  x: {{token}}
+}
+
+docs {
+  Retrieves user's cart with populated product details and total price.
+}

@@ -1,0 +1,37 @@
+meta {
+  name: Register
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/auth/register
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "Password123!",
+    "confirmPassword": "Password123!",
+    "phone": "01012345678",
+    "address": [
+      {
+        "street": "10 Tahrir St",
+        "city": "Cairo",
+        "postalCode": "11511"
+      }
+    ],
+    "gender": "male"
+  }
+}
+
+docs {
+  Register a new user account. Phone will be encrypted and password hashed.
+}

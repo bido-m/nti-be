@@ -1,0 +1,27 @@
+meta {
+  name: Update Product
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/product/{{productId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "price": 949,
+    "stock": 45,
+    "description": "Updated product description"
+  }
+}
+
+docs {
+  Updates product details such as price, stock, description.
+}

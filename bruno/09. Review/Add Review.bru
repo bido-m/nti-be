@@ -1,0 +1,34 @@
+meta {
+  name: Add Review
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/review
+  body: json
+  auth: none
+}
+
+headers {
+  x: {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "product_id": "{{productId}}",
+    "rating": 5,
+    "comment": "Super fast delivery and great build quality!"
+  }
+}
+
+script:post-response {
+  if (res.body && res.body.data && res.body.data._id) {
+    bru.setEnvVar("reviewId", res.body.data._id);
+  }
+}
+
+docs {
+  Adds a rating (1-5) and comment to a product.
+}

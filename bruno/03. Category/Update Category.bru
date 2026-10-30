@@ -1,0 +1,25 @@
+meta {
+  name: Update Category
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/category/{{categoryId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Consumer Electronics"
+  }
+}
+
+docs {
+  Updates category name and automatically regenerates slug.
+}

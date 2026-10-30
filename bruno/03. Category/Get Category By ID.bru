@@ -1,0 +1,15 @@
+meta {
+  name: Get Category By ID
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/category/{{categoryId}}
+  body: none
+  auth: none
+}
+
+docs {
+  Fetches a specific category by its MongoDB ObjectId.
+}

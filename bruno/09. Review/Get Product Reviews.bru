@@ -1,0 +1,15 @@
+meta {
+  name: Get Product Reviews
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/review/product/{{productId}}
+  body: none
+  auth: none
+}
+
+docs {
+  Retrieves all reviews for a product with user details.
+}

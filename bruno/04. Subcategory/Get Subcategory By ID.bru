@@ -1,0 +1,15 @@
+meta {
+  name: Get Subcategory By ID
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/subcategory/{{subcategoryId}}
+  body: none
+  auth: none
+}
+
+docs {
+  Fetches a subcategory by ID with populated category info.
+}
